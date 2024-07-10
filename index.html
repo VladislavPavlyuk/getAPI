@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Using Fetch API to get data from API</title>
+
+</head>
+</head>
+<body>
+  <script>
+    
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '23e08bd22cmsh633d2afd96401b2p13ed6ejsn5c5d7c0ebd70',
+        'X-RapidAPI-Host': 'agoda-com.p.rapidapi.com',
+      },
+    };
+    fetch(
+      'https://agoda-com.p.rapidapi.com/hotels/auto-complete?query=New%20York',
+      options
+    )
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error('Error fetching data:',err));   
+
+  </script>
+
+</body>
+</html>
