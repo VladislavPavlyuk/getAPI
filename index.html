@@ -1,29 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<title>Using Fetch API to get data from API</title>
-
-</head>
+    <meta charset="utf-8" />
+    <link href ="styles.css" rel="stylesheet">
+    <title>API</title>
+   
+    <script src="jquery-3.7.0.js"></script>
+    </style>
 </head>
 <body>
-  <script>
+    <label>City:
+        <div id="apiCity"></div>
+    </label>
+    <label>Country:
+        <div id="apiCountry">Country: </div>
+    </label>
+    <label>Number of Hotels:
+        <div id="apiHotel">Hotel: </div>
+    </label>
+    <script>
     
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': '23e08bd22cmsh633d2afd96401b2p13ed6ejsn5c5d7c0ebd70',
-        'X-RapidAPI-Host': 'agoda-com.p.rapidapi.com',
-      },
-    };
-    fetch(
-      'https://agoda-com.p.rapidapi.com/hotels/auto-complete?query=New%20York',
-      options
-    )
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error('Error fetching data:',err));   
-
-  </script>
-
+        const options = {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': '23e08bd22cmsh633d2afd96401b2p13ed6ejsn5c5d7c0ebd70',
+            'X-RapidAPI-Host': 'agoda-com.p.rapidapi.com',
+          },
+        };
+        const myPromise = fetch(
+          'https://agoda-com.p.rapidapi.com/hotels/auto-complete?query=New%20York',
+          options
+        )
+        const dataPromise = myPromise.then(
+                function (response) {
+                    console.log(response);
+                    return response.json();
+                },
+                error => error
+            );
+            dataPromise.then(
+                function (response) {
+                    console.log(response.data);
+                    console.log(response.data[0]);
+                    console.log(response.data[0]['city'].name);
+                    $('#apiCity').html(response.data[0]['city'].name);
+                    $('#apiCountry').html(response.data[0]['country'].name);
+                    $('#apiHotel').html(response.data[0]['activeHotels']);
+                },
+                error => console.log(error));         
+      </script>
+        
 </body>
 </html>
