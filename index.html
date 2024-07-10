@@ -9,17 +9,24 @@
     </style>
 </head>
 <body>
+
     <label>City:
         <div id="apiCity"></div>
     </label>
     <label>Country:
         <div id="apiCountry">Country: </div>
     </label>
+    <label>State:
+      <div id="apiState">State: </div>
+  </label>
     <label>Number of Hotels:
         <div id="apiHotel">Hotel: </div>
     </label>
     <script>
+
+    anyCity = prompt("Please enter a city :", "Bratislava")
     
+    url ="https://agoda-com.p.rapidapi.com/hotels/auto-complete?query=" + anyCity;
         const options = {
           method: 'GET',
           headers: {
@@ -28,7 +35,7 @@
           },
         };
         const myPromise = fetch(
-          'https://agoda-com.p.rapidapi.com/hotels/auto-complete?query=New%20York',
+          url,
           options
         )
         const dataPromise = myPromise.then(
@@ -45,9 +52,11 @@
                     console.log(response.data[0]['city'].name);
                     $('#apiCity').html(response.data[0]['city'].name);
                     $('#apiCountry').html(response.data[0]['country'].name);
+                    $('#apiState').html(response.data[0]['state'].name);
                     $('#apiHotel').html(response.data[0]['activeHotels']);
                 },
                 error => console.log(error));         
+                
       </script>
         
 </body>
